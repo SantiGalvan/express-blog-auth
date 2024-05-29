@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const postsRouter = require("./routers/posts.js");
+const authRouter = require("./routers/auth.js");
 const errors = require("./middlewares/errors.js");
 
 app.use(express.static('./public'));
@@ -13,6 +14,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/posts', postsRouter);
+
+app.use('/login', authRouter);
 
 // Middleware degli errori
 app.use(errors);
