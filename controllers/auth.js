@@ -2,7 +2,7 @@ const users = require("../database/users.json");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-const generateToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1m" });
+const generateToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
 
 const login = (req, res) => {
     const { username, password } = req.body;

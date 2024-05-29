@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const users = require("../database/users.json");
 
 const authenticate = (req, res, next) => {
     const { authorization } = req.headers;
@@ -20,4 +21,16 @@ const authenticate = (req, res, next) => {
     })
 }
 
-module.exports = authenticate;
+const authenticateAdmin = (req, res, next) => {
+    const { username, password } = req.user;
+    const user = users.find(user => user.username === username && user.password === password);
+
+    if (!user || !user.admin) res.status(403).send('Non sei autorizzato, devi essere admin');
+
+    next();
+}
+
+module.exports = {
+    authenticate,
+    authenticateAdmin
+};
